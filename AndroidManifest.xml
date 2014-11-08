@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <meta-data android:name="com.baidu.lbsapi.API_KEY" 
-            android:value="1ny1uxfDOKf5PrUcVTo06VuE">
+            android:value="T8yxZXQ3AldPfdnkQWIWaXSU">
             </meta-data>
         <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
 		</service>

@@ -32,8 +32,8 @@ public class ParkingSpaceInfo {
 			bean.setLng(obj.get(i).getInt("lng"));
 			bean.setNum(obj.get(i).getInt("num"));
 			bean.setPrice(obj.get(i).getInt("price"));
-			bean.setStart(obj.get(i).getInt("start"));
-			bean.setEnd(obj.get(i).getInt("end"));
+			bean.setStart(obj.get(i).getDate("start"));
+			bean.setEnd(obj.get(i).getDate("end"));
 			bean.setState(obj.get(i).getInt("state"));
 			ParkingSpaceInfo.list.add(bean);
 		}

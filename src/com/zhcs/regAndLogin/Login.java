@@ -14,7 +14,9 @@ import com.avos.avoscloud.PushService;
 import com.avos.avoscloud.SaveCallback;
 import com.zhcs.driverBean.DriverInfo;
 import com.zhcs.net.*;
+import com.zhcs.parkingSpaceDao.ChooseDisplayMode;
 import com.zhcs.parkingSpaceDao.MapForFindParkingSpace;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,8 +83,6 @@ public class Login extends Activity{
         	  	// 执行输入校验
 				if(validate())
 				{
-//					login log=new login();
-//					new Thread(log,"登陆线程").start();//启动登录线程
 					loginToServer();
 				}  
 			}  
@@ -185,7 +185,7 @@ public class Login extends Activity{
 						DriverInfo.setId(obj.getObjectId());
 						DriverInfo.setPhone(phone);	
 			            Toast.makeText(Login.this, "登陆成功", Toast.LENGTH_SHORT).show();
-						Intent intent=new Intent(Login.this, MapForFindParkingSpace.class);
+						Intent intent=new Intent(Login.this, ChooseDisplayMode.class);
 						startActivity(intent);
 						finish();
 		            }else {

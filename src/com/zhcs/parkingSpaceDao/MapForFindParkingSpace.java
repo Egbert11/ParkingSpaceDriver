@@ -86,7 +86,7 @@ public class MapForFindParkingSpace extends Activity {
 		mMapView.getController().enableClick(true);
         mMapView.getController().setZoom(12);
         //mMapView.getController().animateTo(new GeoPoint(23066803, 113391886));
-        mMapView.getController().animateTo(new GeoPoint(39915507, 116408042));
+        mMapView.getController().animateTo(new GeoPoint(23078304, 113402161));
         //ÉùÃ÷LocationClientÀà
         mLocationClient = new LocationClient(getApplicationContext());
         //×¢²á¼àÌýº¯Êý

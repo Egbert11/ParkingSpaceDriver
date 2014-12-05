@@ -1,14 +1,16 @@
 package com.zhcs.driverBean;
 
+import java.util.Date;
+
 /*
  * 当前所订阅的车位信息
  */
 public class BookSpaceInfo {
 	private static SpaceInfoBean space;
 	//订阅车位的开始时间
-	private static int start;
+	private static Date start;
 	//订阅车位的结束时间
-	private static int end;
+	private static Date end;
 	//订阅车位的日志id
 	private static String logObjectId;
 	public static SpaceInfoBean getSpace() {
@@ -19,19 +21,19 @@ public class BookSpaceInfo {
 		BookSpaceInfo.space = space;
 	}
 
-	public static int getStart() {
+	public static Date getStart() {
 		return start;
 	}
 
-	public static void setStart(int start) {
+	public static void setStart(Date start) {
 		BookSpaceInfo.start = start;
 	}
 
-	public static int getEnd() {
+	public static Date getEnd() {
 		return end;
 	}
 
-	public static void setEnd(int end) {
+	public static void setEnd(Date end) {
 		BookSpaceInfo.end = end;
 	}
 

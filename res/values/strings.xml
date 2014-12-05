@@ -4,5 +4,15 @@
     <string name="app_name">停车易（车主）</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-	<string name="navi_tip">到达目的地后，可以点击”生成二维码“生成本次订单的二维码，供物业端进行审核和扫描。</string>
+    <string name="navi_tip">到达目的地后，可以点击”生成二维码“生成本次订单的二维码，供物业端进行审核和扫描。</string>
+
+    <string-array name="order">
+        <item>时间</item>
+        <item>距离</item>
+        <item>价格</item>
+    </string-array>
+
+    <string name="title_activity_carpark_list">CarparkListActivity</string>
+    <string name="action_settings">Settings</string>
+
 </resources>

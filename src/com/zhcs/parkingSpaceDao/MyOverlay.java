@@ -1,7 +1,9 @@
 package com.zhcs.parkingSpaceDao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -87,11 +89,9 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
 		            }else {
 			          	//修改状态为1
 						mod.put("state", 1);
-						Log.e("overlay","卡死了1");
 						mod.saveInBackground(new SaveCallback() {
 							public void done(AVException arg0) {
 								if (arg0 == null) {
-									Log.e("overlay","卡死了2");
 									//Toast.makeText(activity,"预订成功", Toast.LENGTH_SHORT).show();
 									Intent intent = new Intent(activity, BookSpace.class);
 									activity.startActivity(intent);
@@ -137,8 +137,11 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
 		public void handleMessage(Message msg)
 		{
 			if(msg.what==0x00){
-		    	String message = "地址："+address+"\n"+"开放时间："+list.get(index).getStart()
-					+":00--"+list.get(index).getEnd()+":00"+"\n"+"你确定订阅该车位？";
+				SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+				String start = sdf.format(list.get(index).getStart());
+				String end = sdf.format(list.get(index).getEnd());
+		    	String message = "地址：" + address + "\n"+"开放时间："+ start
+					+"--"+ end +"\n" + "你确定订阅该车位？";
 		    	address = "";
 		    	new AlertDialog.Builder(activity).setTitle("车位信息").setMessage(message)
 				.setPositiveButton("订阅", new DialogInterface.OnClickListener() {

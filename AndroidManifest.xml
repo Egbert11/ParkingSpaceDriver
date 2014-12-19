@@ -67,7 +67,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".CarparkListActivity" />
+        <activity android:name="com.zhcs.parklist.CarparkListActivity" />
     </application>
 
     <!-- 使用网络功能所需权限 -->

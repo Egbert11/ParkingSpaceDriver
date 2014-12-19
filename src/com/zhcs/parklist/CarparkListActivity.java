@@ -1,8 +1,11 @@
-package com.zhcs.regAndLogin;
+package com.zhcs.parklist;
 
 import com.zhcs.driverBean.DriverInfo;
 import com.zhcs.driverBean.ParkingSpaceInfo;
 import com.zhcs.driverBean.SpaceInfoBean;
+import com.zhcs.regAndLogin.R;
+import com.zhcs.regAndLogin.R.id;
+import com.zhcs.regAndLogin.R.layout;
 import com.zhcs.ui.adapter.CarInfoAdapter;
 import com.zhcs.ui.adapter.CarInfoAdapter.Order;
 
@@ -41,9 +44,9 @@ public class CarparkListActivity extends Activity {
 				if (position == 0)
 					mCarInfoAdapter.switchOrder(Order.Date);
 				else if (position == 1)
-					mCarInfoAdapter.switchOrder(Order.Distance);
-				else
 					mCarInfoAdapter.switchOrder(Order.Price);
+				else
+					mCarInfoAdapter.switchOrder(Order.Distance);
 			}
  		});
 	}

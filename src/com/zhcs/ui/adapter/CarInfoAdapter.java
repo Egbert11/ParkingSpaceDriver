@@ -1,5 +1,6 @@
 package com.zhcs.ui.adapter;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -110,11 +111,16 @@ public class CarInfoAdapter extends BaseAdapter {
 	}
 
 	private CharSequence getDate(int position) {
-		return null;
+		SimpleDateFormat format = new SimpleDateFormat("hh:mm");  
+		StringBuilder sb = new StringBuilder();
+		sb.append(format.format(getItem(position).getStart()));
+		sb.append("--");
+		sb.append(format.format(getItem(position).getEnd()));
+		return sb.toString();
 	}
 
 	private CharSequence getDistance(int position) {
-		return null;
+		
 	}
 
 }

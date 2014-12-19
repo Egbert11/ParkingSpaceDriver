@@ -8,8 +8,8 @@
 
     <string-array name="order">
         <item>时间</item>
-        <item>距离</item>
         <item>价格</item>
+        <item>距离</item>
     </string-array>
 
     <string name="title_activity_carpark_list">CarparkListActivity</string>

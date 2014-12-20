@@ -1,20 +1,22 @@
 package com.zhcs.parklist;
 
-import com.zhcs.driverBean.DriverInfo;
+import java.util.List;
+
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.zhcs.driverBean.ParkingSpaceInfo;
-import com.zhcs.driverBean.SpaceInfoBean;
 import com.zhcs.regAndLogin.R;
-import com.zhcs.regAndLogin.R.id;
-import com.zhcs.regAndLogin.R.layout;
 import com.zhcs.ui.adapter.CarInfoAdapter;
 import com.zhcs.ui.adapter.CarInfoAdapter.Order;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -36,9 +38,9 @@ public class CarparkListActivity extends Activity {
 		mSpinner = (Spinner) findViewById(R.id.order_spinner);
 		mListView = (ListView) findViewById(R.id.content_list);
 		mListView.setAdapter(mCarInfoAdapter);
-		mSpinner.setOnItemClickListener(new OnItemClickListener() {
+		mSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
+			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 //				if (mSpinner.getSelectedItem().toString().equals("Ê±¼ä"))
 				if (position == 0)
@@ -47,6 +49,11 @@ public class CarparkListActivity extends Activity {
 					mCarInfoAdapter.switchOrder(Order.Price);
 				else
 					mCarInfoAdapter.switchOrder(Order.Distance);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				
 			}
  		});
 	}

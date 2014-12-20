@@ -147,16 +147,6 @@ public class MapForFindParkingSpace extends Activity {
                     	}
                     }
                 } 
-//                else if (res.getCityListNum() > 0) {
-//                	//当输入关键字在本市没有找到，但在其他城市找到时，返回包含该关键字信息的城市列表
-//                    String strInfo = "在";
-//                    for (int i = 0; i < res.getCityListNum(); i++) {
-//                        strInfo += res.getCityListInfo(i).city;
-//                        strInfo += ",";
-//                    }
-//                    strInfo += "找到结果";
-//                    Toast.makeText(MapForFindParkingSpace.this, strInfo, Toast.LENGTH_LONG).show();
-//                }
             }
             public void onGetDrivingRouteResult(MKDrivingRouteResult res,
                     int error) {

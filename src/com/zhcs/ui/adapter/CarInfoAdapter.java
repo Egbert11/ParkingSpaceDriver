@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.zhcs.driverBean.SpaceInfoBean;
+import com.zhcs.parkingSpaceDao.BookSpace;
+import com.zhcs.parklist.CarparkListActivity;
 import com.zhcs.parklist.GeoDistance;
 import com.zhcs.parklist.LocationService;
 import com.zhcs.regAndLogin.R;
@@ -35,14 +39,23 @@ public class CarInfoAdapter extends BaseAdapter {
 	private Comparator<SpaceInfoBean> mDistanceComp = new Comparator<SpaceInfoBean>() {
 		@Override
 		public int compare(SpaceInfoBean lhs, SpaceInfoBean rhs) {
-			return 0;
+			lat = LocationService.getLatitude();
+			lng = LocationService.getLongitude();
+			double lat_lhs = ((double)lhs.getLat()) / 1000000;
+			double lng_lhs = ((double)lhs.getLng()) / 1000000;
+			double distance_lhs = GeoDistance.computeCompareDistance(lat, lng, lat_lhs, lng_lhs);
+			
+			double lat_rhs = ((double)rhs.getLat()) / 1000000;
+			double lng_rhs = ((double)rhs.getLng()) / 1000000;
+			double distance_rhs = GeoDistance.computeCompareDistance(lat, lng, lat_rhs, lng_rhs);
+			return (int) (distance_lhs - distance_rhs);
 		}
 	};
 
 	private Comparator<SpaceInfoBean> mDateComp = new Comparator<SpaceInfoBean>() {
 		@Override
 		public int compare(SpaceInfoBean lhs, SpaceInfoBean rhs) {
-			return lhs.getStart().compareTo(rhs.getStart());
+			return lhs.getEnd().compareTo(rhs.getEnd());
 		}
 	};
 
@@ -110,7 +123,9 @@ public class CarInfoAdapter extends BaseAdapter {
 		mSubscripe.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
+				Intent intent = new Intent(mInflater.getContext(), BookSpace.class);
+				Bundle bundle = new Bundle();
+				mInflater.getContext().startActivity(intent);
 			}
 		});
 		return convertView;

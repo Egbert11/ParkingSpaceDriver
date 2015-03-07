@@ -7,6 +7,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.zhcs.parkingSpaceDao.NaviDemo;
 
 import android.app.Service;
 import android.content.Intent;
@@ -31,7 +32,7 @@ public class LocationService extends Service {
         super.onCreate();
         
         locationClient = new LocationClient(this);
-        Log.e("LocationService","RUN");
+        Log.v("LocationService","RUN");
         //设置定位条件
         LocationClientOption option = new LocationClientOption();
         option.setOpenGps(true);        //是否打开GPS
@@ -52,30 +53,9 @@ public class LocationService extends Service {
                 }
                 lat = location.getLatitude();
                 lng = location.getLongitude();
-                Log.e("LocationServiceChanged","lat:"+lat+" lng:"+lng);
-//                StringBuffer sb = new StringBuffer(256);
-//                sb.append("Time : ");
-//                sb.append(location.getTime());
-//                sb.append("\nError code : ");
-//                sb.append(location.getLocType());
-//                sb.append("\nLatitude : ");
-//                sb.append(location.getLatitude());
-//                sb.append("\nLontitude : ");
-//                sb.append(location.getLongitude());
-//                sb.append("\nRadius : ");
-//                sb.append(location.getRadius());
-//                if (location.getLocType() == BDLocation.TypeGpsLocation){
-//                    sb.append("\nSpeed : ");
-//                    sb.append(location.getSpeed());
-//                    sb.append("\nSatellite : ");
-//                    sb.append(location.getSatelliteNumber());
-//                } else if (location.getLocType() == BDLocation.TypeNetWorkLocation){
-//                    sb.append("\nAddress : ");
-//                    sb.append(location.getAddrStr());
-//                }
-//                LOCATION_COUTNS ++;
-//                sb.append("\n检查位置更新次数：");
-//                sb.append(String.valueOf(LOCATION_COUTNS));
+                NaviDemo.setmLat1(lat);
+                NaviDemo.setmLon1(lng);
+                Log.v("LocationServiceChanged","lat:"+lat+" lng:"+lng);
             }
              
             @Override
@@ -101,11 +81,11 @@ public class LocationService extends Service {
     private void startTimer(){
  	   if (timer == null) {  
  		   timer = new Timer();  
- 		   Log.e("timer","start");
+ 		   Log.v("timer","start");
         } 
  	   
  	   if(timerTask == null){
- 		   Log.e("timerTask","start");
+ 		   Log.v("timerTask","start");
  		  timerTask = new TimerTask() {
  			
  			@Override

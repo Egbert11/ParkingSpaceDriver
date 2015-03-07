@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.zhcs.driverBean.BookSpaceInfo;
 import com.zhcs.driverBean.SpaceInfoBean;
 import com.zhcs.parkingSpaceDao.BookSpace;
 import com.zhcs.parklist.CarparkListActivity;
@@ -105,7 +107,7 @@ public class CarInfoAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
 			convertView = mInflater.inflate(R.layout.listitem_carinfo, parent,
 					false);
@@ -123,9 +125,11 @@ public class CarInfoAdapter extends BaseAdapter {
 		mSubscripe.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				BookSpaceInfo.setSpace(getItem(position));
 				Intent intent = new Intent(mInflater.getContext(), BookSpace.class);
 				Bundle bundle = new Bundle();
 				mInflater.getContext().startActivity(intent);
+//				Toast.makeText(mInflater.getContext(), ""+getItem(position).getPrice(), Toast.LENGTH_SHORT).show();
 			}
 		});
 		return convertView;

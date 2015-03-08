@@ -337,6 +337,7 @@ public class BookSpace extends Activity implements View.OnTouchListener{
 					reg.put("start", BookSpaceInfo.getStart());
 					reg.put("end", BookSpaceInfo.getEnd());
 					reg.put("cost", cost);
+					reg.put("fine", 0);
 					reg.put("state", 1);// 1已订阅， 2已经进入小区， 3已经离开小区
 					reg.saveInBackground(new SaveCallback() {
 						public void done(AVException arg0) {

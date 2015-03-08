@@ -21,6 +21,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -34,50 +36,74 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.CanvasTransformer;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 import com.zhcs.driverBean.BookSpaceInfo;
 import com.zhcs.driverBean.DriverInfo;
 import com.zhcs.regAndLogin.R;
 
-public class QRCodeView extends Activity{
+public class QRCodeView extends SlidingFragmentActivity{
 	private ImageView imageview = null;
 	private Button save = null;
 	private Bitmap image = null;
+	private CanvasTransformer mTransformer;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState){
+	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		
 		//去除标题
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_2dcodeview);
+		if(BookSpaceInfo.getLogObjectId() == null){
+			setContentView(R.layout.nosubscribe);
+			setTitle("二维码查看");
+			
+			initAnimation();
+			initSlidingMenu();
+			// 给左上角图标的左边加上一个返回的图标 
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+			 // 给左上角图标的左边加上一个返回的图标 
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}else{
 		
-		//获得实例对象
-		imageview=(ImageView)findViewById(R.id.imgView);
-		save=(Button)findViewById(R.id.save);
-		
-		//二维码的内容
-//		String content = "车主id："+DriverInfo.getId()+"\n";
-//		content += "地址："+ BookSpaceInfo.getSpace().getAddress()+"\n";
-//		content += "订阅时间:"+ BookSpaceInfo.getStart()+":00--"+BookSpaceInfo.getEnd()+":00\n";
-//		content += "订阅车位号:"+ BookSpaceInfo.getSpace().getNum();
-		String content = BookSpaceInfo.getLogObjectId();
-		
-		try {
+			setTitle("二维码查看");
+			
+			initAnimation();
+			initSlidingMenu();
+			// 给左上角图标的左边加上一个返回的图标 
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+			 // 给左上角图标的左边加上一个返回的图标 
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+			
+			//获得实例对象
+			imageview=(ImageView)findViewById(R.id.imgView);
+			save=(Button)findViewById(R.id.save);
+			
+			//二维码的内容
+	//		String content = "车主id："+DriverInfo.getId()+"\n";
+	//		content += "地址："+ BookSpaceInfo.getSpace().getAddress()+"\n";
+	//		content += "订阅时间:"+ BookSpaceInfo.getStart()+":00--"+BookSpaceInfo.getEnd()+":00\n";
+	//		content += "订阅车位号:"+ BookSpaceInfo.getSpace().getNum();
+			String content = BookSpaceInfo.getLogObjectId();
+			
 			try {
-				image = createBitmap(Create2DCode(content));
-			} catch (UnsupportedEncodingException e) {
+				try {
+					image = createBitmap(Create2DCode(content));
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (WriterException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} catch (WriterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		imageview.setImageBitmap(image);
-		
-		save.setOnClickListener(new View.OnClickListener() {
-					
+			
+			imageview.setImageBitmap(image);
+			
+			save.setOnClickListener(new View.OnClickListener() {
+						
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
 					 ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -92,6 +118,7 @@ public class QRCodeView extends Activity{
 					}
 				}
 			});
+		}
 	}
 	
 	public void Write(byte []b) throws IOException
@@ -179,4 +206,62 @@ public class QRCodeView extends Activity{
 	    return newb;
 
     }
+	
+	/**
+	 * 初始化滑动菜单
+	 */
+	private void initSlidingMenu(){
+		// 设置主界面视图
+		//getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new SampleListFragment()).commit();
+				
+		// 设置滑动菜单视图
+		setBehindContentView(R.layout.menu_frame);
+		getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame, new SampleListFragment()).commit();
+
+		// 设置滑动菜单的属性值
+		SlidingMenu sm = getSlidingMenu();		
+		sm.setShadowWidthRes(R.dimen.shadow_width);
+		sm.setShadowDrawable(R.layout.shadow);
+		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		sm.setBehindWidth(400);
+		sm.setFadeDegree(0.35f);
+		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		sm.setBehindScrollScale(0.0f);
+		sm.setBehindCanvasTransformer(mTransformer);
+		
+		setSlidingActionBarEnabled(true);
+	}
+
+	/**
+	 * 初始化动画效果
+	 */
+	private void initAnimation(){
+		mTransformer = new CanvasTransformer(){
+			@Override
+			public void transformCanvas(Canvas canvas, float percentOpen) {
+				canvas.scale(percentOpen, 1, 0, 0);				
+			}
+			
+		};
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			toggle();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			moveTaskToBack(true);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_pubspace" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:orientation = "vertical">
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:textColor="#FFF"
+        android:text="余额查询" />
+    
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:textSize="22sp"
+        android:gravity="center" 
+        android:background="#55BFE7"
+        android:layout_below="@id/textView1"
+        android:layout_marginLeft="30dp"
+        android:text=" 余额："
+        android:textColor="#FFF"/>
+    
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:textSize="22sp"
+        android:gravity="center" 
+        android:background="#55BFE7"
+        android:layout_below="@id/textView1"
+        android:layout_toRightOf="@+id/textView2"
+        android:layout_marginLeft="30dp"
+        android:text=" 100元"
+        android:textColor="#CD0000"/>
+    
+    <Button
+        android:id="@+id/goRecharge"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#76EE00"
+        android:text="充           值"
+        android:onClick="recharge"
+        android:textColor="#000"
+        android:textSize="25sp" >
+    </Button>
+</RelativeLayout>
+
+</LinearLayout>

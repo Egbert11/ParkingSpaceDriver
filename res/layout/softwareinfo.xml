@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+	android:background="@drawable/bg_pubspace">
+   <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="     停车易（EasyParking）应用由中山大学研究生黄嘉明研发。此应用基于云服务平台，致力于提高城市车位的利用率，共创智慧城市的美好未来。此应用最终解释权归本人所有。"
+            android:textColor="#FFF"/>
+    </LinearLayout>

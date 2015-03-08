@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8DEEEE"
+    android:orientation="vertical"
+    tools:context="com.example.parkingspace_ui.MainActivity$PlaceholderFragment" >
+
+<!--     <TextView -->
+<!--         android:id="@+id/textView1" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="30dp" -->
+<!--         android:layout_alignParentLeft="true" -->
+<!--         android:layout_alignParentRight="true" -->
+<!--         android:layout_alignParentTop="true" -->
+<!--         android:background="@drawable/setbar_bg_blue" -->
+<!--         android:text="用户名:rokey000" -->
+<!--         android:textAppearance="?android:attr/textAppearanceMedium" -->
+<!--         android:textColor="#fff" -->
+<!--         android:textSize="20dp" /> -->
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="历史订单"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/setbar_bg_nocolor"
+        android:text=" 编号                开始时间              结束时间"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000"
+        android:textSize="20dp" />
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/TextView01" >
+
+    </ListView>
+
+<!--     <Button -->
+<!--         android:id="@+id/button4" -->
+<!--         style="?android:attr/buttonStyleSmall" -->
+<!--         android:layout_width="60dp" -->
+<!--         android:layout_height="30dp" -->
+<!--         android:layout_alignParentRight="true" -->
+<!--         android:layout_alignParentTop="true" -->
+<!--         android:background="@drawable/setbar_bg_white" -->
+<!--         android:textColor="#000" -->
+<!--         android:onClick="logoutFun" -->
+<!--         android:text="注销" /> -->
+
+    </RelativeLayout>
+
+    

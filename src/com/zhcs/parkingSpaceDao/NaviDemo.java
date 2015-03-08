@@ -2,8 +2,11 @@ package com.zhcs.parkingSpaceDao;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,10 +16,14 @@ import com.baidu.navisdk.BNaviEngineManager.NaviEngineInitListener;
 import com.baidu.navisdk.BaiduNaviManager;
 import com.baidu.navisdk.BaiduNaviManager.OnStartNavigationListener;
 import com.baidu.navisdk.comapi.routeplan.RoutePlanParams.NE_RoutePlan_Mode;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.CanvasTransformer;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.zhcs.driverBean.BookSpaceInfo;
 import com.zhcs.navi.BNavigatorActivity;
 import com.zhcs.regAndLogin.R;
 
-public class NaviDemo extends Activity {
+public class NaviDemo extends SlidingFragmentActivity {
 	
 	//目前所在位置坐标
 	private static double mLat1; 
@@ -25,28 +32,50 @@ public class NaviDemo extends Activity {
 	private static double mLat2;   
 	private static double mLon2;
 	private boolean mIsEngineInitSuccess = false;
+	private CanvasTransformer mTransformer;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_navi_demo);
-		BaiduNaviManager.getInstance().initEngine(this, getSdcardDir(),
-                mNaviEngineInitListener, new LBSAuthManagerListener() {
-                    @Override
-                    public void onAuthResult(int status, String msg) {
-                        String str = null;
-                        if (0 == status) {
-                            str = "key校验成功!";
-                        } else {
-                            str = "key校验失败, " + msg;
-                        }
-                        Toast.makeText(NaviDemo.this, str,
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-		//页面初始化
-		TextView text = (TextView)findViewById(R.id.navi_info);
-		text.setText(String.format("起点:(%f,%f)\n终点:(%f,%f)",mLat1,mLon1,mLat2,mLon2));
+		if(BookSpaceInfo.getLogObjectId() == null){
+			setContentView(R.layout.nosubscribe);
+			setTitle("地图导航");
+			
+			initAnimation();
+			initSlidingMenu();
+			// 给左上角图标的左边加上一个返回的图标 
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+			 // 给左上角图标的左边加上一个返回的图标 
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}else{
+			setContentView(R.layout.activity_navi_demo);
+			setTitle("地图导航");
+			
+			initAnimation();
+			initSlidingMenu();
+			// 给左上角图标的左边加上一个返回的图标 
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+			 // 给左上角图标的左边加上一个返回的图标 
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+			
+			BaiduNaviManager.getInstance().initEngine(this, getSdcardDir(),
+	                mNaviEngineInitListener, new LBSAuthManagerListener() {
+	                    @Override
+	                    public void onAuthResult(int status, String msg) {
+	                        String str = null;
+	                        if (0 == status) {
+	                            str = "key校验成功!";
+	                        } else {
+	                            str = "key校验失败, " + msg;
+	                        }
+	                        Toast.makeText(NaviDemo.this, str,
+	                                Toast.LENGTH_LONG).show();
+	                    }
+	                });
+			//页面初始化
+			TextView text = (TextView)findViewById(R.id.navi_info);
+			text.setText(String.format("起点:(%f,%f)\n终点:(%f,%f)",mLat1,mLon1,mLat2,mLon2));
+		}
 	}
 	
 	private String getSdcardDir() {
@@ -113,6 +142,63 @@ public class NaviDemo extends Activity {
   	    i.addCategory(Intent.CATEGORY_HOME);
   	    startActivity(i); 
   	}
+   
+   /**
+	 * 初始化滑动菜单
+	 */
+	private void initSlidingMenu(){
+		// 设置主界面视图
+		//getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new SampleListFragment()).commit();
+				
+		// 设置滑动菜单视图
+		setBehindContentView(R.layout.menu_frame);
+		getSupportFragmentManager().beginTransaction().replace(R.id.menu_frame, new SampleListFragment()).commit();
+
+		// 设置滑动菜单的属性值
+		SlidingMenu sm = getSlidingMenu();		
+		sm.setShadowWidthRes(R.dimen.shadow_width);
+		sm.setShadowDrawable(R.layout.shadow);
+		sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		sm.setBehindWidth(400);
+		sm.setFadeDegree(0.35f);
+		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+		sm.setBehindScrollScale(0.0f);
+		sm.setBehindCanvasTransformer(mTransformer);
+		
+		setSlidingActionBarEnabled(true);
+	}
+
+	/**
+	 * 初始化动画效果
+	 */
+	private void initAnimation(){
+		mTransformer = new CanvasTransformer(){
+			@Override
+			public void transformCanvas(Canvas canvas, float percentOpen) {
+				canvas.scale(percentOpen, 1, 0, 0);				
+			}
+			
+		};
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			toggle();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			moveTaskToBack(true);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
 //	public void startWebNavi(View view) {
 //		int lat = (int) (mLat1 * 1E6);
 //		int lon = (int) (mLon1 * 1E6);

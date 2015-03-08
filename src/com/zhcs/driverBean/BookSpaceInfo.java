@@ -12,7 +12,7 @@ public class BookSpaceInfo {
 	//订阅车位的结束时间
 	private static Date end;
 	//订阅车位的日志id
-	private static String logObjectId;
+	private static String logObjectId = null;
 	public static SpaceInfoBean getSpace() {
 		return space;
 	}
